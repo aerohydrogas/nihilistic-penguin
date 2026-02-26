@@ -88,3 +88,15 @@ export const UI = {
   BODY_RATIO: 0.035,
   SMALL_RATIO: 0.025,
 };
+
+export const TRANSITION = {
+  DURATION: 500,
+};
+
+export const SAFE_ZONE = {
+  TOP: GAME.HEIGHT * 0.15, // Reserve top 15% for Play.fun widget
+  BOTTOM: GAME.HEIGHT * 0.1,
+  LEFT: GAME.WIDTH * 0.05,
+  RIGHT: GAME.WIDTH * 0.05,
+};
+

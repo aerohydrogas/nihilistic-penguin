@@ -267,23 +267,20 @@ export class GameScene extends Scene {
     }
 
     // --- Distance / Score ---
-    if (!gameState.isHuddling) {
-        // Distance is speed * time. 
-        // Or since we have a fixed speed right now (mostly), just accumulate.
-        // But wind pushes back, so actual velocity matters.
-        const velX = this.penguin.body.velocity.x;
-        if (velX > 0) {
-            gameState.updateDistance(velX * (delta/1000));
-            eventBus.emit(Events.SCORE_CHANGED, Math.floor(gameState.score));
-            
-            // Emit step event occasionally based on time or distance?
-            // Since we don't have animation frames accessible easily here without digging into Penguin,
-            // let's do a simple timer-based step sound.
-            // But better to check Penguin.js first. 
-            // For now, I'll rely on update logic or add a timer here.
-            // Actually, let's just emit 'PLAYER_MOVE' here every X ms if moving?
-            // Or better: Penguin.js probably handles animation.
-        }
+    if (!gameState.started) return;
+
+    // Calculate score based on movement
+    const velX = this.penguin.body.velocity.x;
+    if (velX > 0 && !gameState.gameOver) {
+        // Distance gained in this frame (pixels -> meters conversion factor needed?)
+        // Let's assume 1 pixel = 0.1 meters for scoring
+        const deltaDist = (velX * (delta / 1000)) * 0.1;
+        gameState.score += deltaDist;
+        
+        eventBus.emit(Events.SCORE_CHANGED, { 
+            score: Math.floor(gameState.score), 
+            delta: deltaDist 
+        });
     }
 
     // --- Check Game Over ---
