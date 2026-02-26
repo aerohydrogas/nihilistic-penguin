@@ -556,9 +556,9 @@ function updateScore(dt){
   }
 }
 async function doCommit(){
-  if(sdkReady&&window._sdk) try{await window._sdk.commit();}catch(e){}
-  const t=document.getElementById('commit-toast');
-  t.style.opacity='1'; setTimeout(()=>{t.style.opacity='0';},3000);
+  if(sdkReady && window._sdk) try{ await window._sdk.endGame(); }catch(e){}
+  const t = document.getElementById('commit-toast');
+  t.style.opacity='1'; setTimeout(()=>{ t.style.opacity='0'; }, 3000);
 }
 
 // ── Main loop ─────────────────────────────────────────────────────────────────
