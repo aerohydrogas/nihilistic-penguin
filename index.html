@@ -12,9 +12,22 @@
     html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
     #game-container { width: 100%; height: 100%; }
   </style>
-  <script type="module" crossorigin src="/nihilistic-penguin/assets/index-DFB1FdPk.js"></script>
+  <script type="module" crossorigin src="/nihilistic-penguin/assets/index-3FPTui3J.js"></script>
 </head>
 <body>
   <div id="game-container"></div>
+  <script>
+    // Play.fun Initialization (required for ownership verification)
+    window.addEventListener('load', function() {
+      if (typeof window.PlayFun !== 'undefined') {
+        window.PlayFun.init({
+            gameId: '7d97fb68-aad5-4c8d-8b01-335f6e6b4144'
+        }).then((sdk) => {
+            console.log('Play.fun SDK initialized via inline script');
+            window.playFunSDK = sdk; // Expose for game logic
+        }).catch(console.error);
+      }
+    });
+  </script>
 </body>
 </html>
