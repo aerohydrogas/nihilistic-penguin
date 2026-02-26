@@ -534,11 +534,11 @@ let commitT=0,commitInterval=rnd(120,300);
 let sdkReady=false;
 
 function initSDK(){
-  if(typeof OpenGameSDK!=='undefined'){
-    window._sdk=new OpenGameSDK({ui:{usePointsWidget:true}});
-    window._sdk.init({gameId:'7d97fb68-aad5-4c8d-8b01-335f6e6b4144'})
-      .then(()=>{sdkReady=true;}).catch(()=>{});
-  }
+  if(typeof OpenGameSDK==='undefined'){ return; }
+  window._sdk = new OpenGameSDK({ ui:{ usePointsWidget:true } });
+  window._sdk.init({ gameId:'7d97fb68-aad5-4c8d-8b01-335f6e6b4144' })
+    .then(()=>{ sdkReady=true; console.log('SDK ready'); })
+    .catch((e)=>{ console.error('SDK error',e); });
 }
 
 function updateScore(dt){
@@ -551,10 +551,10 @@ function updateScore(dt){
     if(sdkReady&&window._sdk) window._sdk.addPoints(pts);
   }
   commitT+=dt;
-  if(commitT>=commitInterval){
-    commitT=0; commitInterval=rnd(120,300); doCommit();
+  doCommit();
   }
 }
+
 async function doCommit(){
   if(sdkReady && window._sdk) try{ await window._sdk.endGame(); }catch(e){}
   const t = document.getElementById('commit-toast');
