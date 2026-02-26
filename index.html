@@ -461,7 +461,7 @@ function updateScore(dt){
 
 async function doCommit(){
   if(sdkReady&&_sdk){
-    try{ await _sdk.savePoints(); }catch(e){}
+    try{ await _sdk.endGame(); }catch(e){}
   }
   const t=document.getElementById('commit-toast');
   t.style.opacity='1'; setTimeout(()=>{t.style.opacity='0';},3000);
