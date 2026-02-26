@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { GameConfig } from './core/GameConfig.js';
 import { eventBus, Events } from './core/EventBus.js';
 import { gameState } from './core/GameState.js';
-import { initPlayFun } from './playfun.js'; // Play.fun integration
+import { setupPlayFunEvents } from './playfun.js';
 
 const game = new Phaser.Game(GameConfig);
 
@@ -12,8 +12,7 @@ window.__GAME_STATE__ = gameState;
 window.__EVENT_BUS__ = eventBus;
 window.__EVENTS__ = Events;
 
-// Initialize Play.fun SDK
-initPlayFun().catch(err => console.warn('Play.fun init failed:', err));
+setupPlayFunEvents();
 
 // --- AI-readable game state snapshot ---
 // Returns a concise JSON string for automated agents to understand the game

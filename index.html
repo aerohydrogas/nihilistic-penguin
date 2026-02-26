@@ -16,5 +16,18 @@
 <body>
   <div id="game-container"></div>
   <script type="module" src="/src/main.js"></script>
+  <script>
+    // Play.fun Initialization (required for ownership verification)
+    window.addEventListener('load', function() {
+      if (typeof window.PlayFun !== 'undefined') {
+        window.PlayFun.init({
+            gameId: '7d97fb68-aad5-4c8d-8b01-335f6e6b4144'
+        }).then((sdk) => {
+            console.log('Play.fun SDK initialized via inline script');
+            window.playFunSDK = sdk; // Expose for game logic
+        }).catch(console.error);
+      }
+    });
+  </script>
 </body>
 </html>
